@@ -20,8 +20,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(a -> a
                 .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/api/auth/**","/swagger-ui/**","/swagger-ui.html","/api-docs/**").permitAll()
+                .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/templates", "/api/templates/{id}").authenticated()
                 .requestMatchers("/api/templates/**").hasAnyRole("ADMIN","MANAGER")
-                .requestMatchers("/api/analytics/**").hasRole("ADMIN")
+                .requestMatchers("/api/requests/analytics").hasRole("ADMIN")
                 .anyRequest().authenticated())
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

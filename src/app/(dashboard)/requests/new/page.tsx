@@ -16,7 +16,7 @@ export default function NewRequestPage() {
   const [description, setDescription] = useState('')
   const [templateId, setTemplateId] = useState<number | null>(null)
   const [loading, setLoading] = useState(false)
-  const { data: templates, isLoading } = useQuery({ queryKey: ['templates'], queryFn: getTemplates })
+  const { data: templates, isLoading, error } = useQuery({ queryKey: ['templates'], queryFn: getTemplates })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -53,7 +53,12 @@ export default function NewRequestPage() {
           <Label>Select Template</Label>
           {isLoading ? <Skeleton className="h-20 w-full" /> : (
             <div className="flex flex-col gap-2">
-              {(!templates || templates.length === 0) && (
+              {error && (
+                <div className="p-3 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm">
+                  Failed to load templates: {(error as any)?.response?.data?.message || (error as any)?.message || 'Server error'}
+                </div>
+              )}
+              {!error && (!templates || templates.length === 0) && (
                 <p className="text-sm text-muted-foreground py-2">No active templates found. Ask an Admin to create one.</p>
               )}
               {templates?.filter((t: any) => t.active).map((t: any) => (
