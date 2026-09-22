@@ -32,6 +32,12 @@ public class WorkflowTemplateController {
         return ResponseEntity.ok(ApiResponse.success("OK", templateService.getAllActive()));
     }
 
+    @GetMapping("/all")
+    @Operation(summary = "List all templates including inactive (Admin only)")
+    public ResponseEntity<ApiResponse<List<TemplateResponse>>> getAllIncludingInactive() {
+        return ResponseEntity.ok(ApiResponse.success("OK", templateService.getAll()));
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "Get template by ID")
     public ResponseEntity<ApiResponse<TemplateResponse>> getById(@PathVariable Long id) {
@@ -42,5 +48,11 @@ public class WorkflowTemplateController {
     @Operation(summary = "Deactivate template", description = "Soft-deletes a template. Existing requests are not affected.")
     public ResponseEntity<ApiResponse<TemplateResponse>> deactivate(@PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.success("Template deactivated", templateService.deactivate(id)));
+    }
+
+    @PutMapping("/{id}/activate")
+    @Operation(summary = "Activate template", description = "Re-activates a previously deactivated template.")
+    public ResponseEntity<ApiResponse<TemplateResponse>> activate(@PathVariable Long id) {
+        return ResponseEntity.ok(ApiResponse.success("Template activated", templateService.activate(id)));
     }
 }

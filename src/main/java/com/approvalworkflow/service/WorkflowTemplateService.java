@@ -71,4 +71,12 @@ public class WorkflowTemplateService {
         t.setActive(false);
         return TemplateResponse.from(templateRepository.save(t));
     }
+
+    @Transactional
+    public TemplateResponse activate(Long id) {
+        WorkflowTemplate t = templateRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Template not found: " + id));
+        t.setActive(true);
+        return TemplateResponse.from(templateRepository.save(t));
+    }
 }
