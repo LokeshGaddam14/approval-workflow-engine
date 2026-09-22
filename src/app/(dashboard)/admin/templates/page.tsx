@@ -71,14 +71,30 @@ export default function TemplatesPage() {
                   <p className="text-xs text-muted-foreground mt-1">{t.description}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Badge variant={t.active ? 'default' : 'secondary'}>{t.active ? 'Active' : 'Inactive'}</Badge>
+                  <Badge className={t.active ? 'bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-300 hover:bg-green-100' : 'bg-muted text-muted-foreground'}>
+                    {t.active ? 'Active' : 'Inactive'}
+                  </Badge>
                   {t.active ? (
-                    <Button variant="ghost" size="icon" className="size-7" onClick={() => deactivateMutation.mutate(t.id)} title="Deactivate">
-                      <Trash2 className="size-3.5 text-destructive" />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 text-xs text-destructive border-destructive/30 hover:bg-destructive/10"
+                      onClick={() => deactivateMutation.mutate(t.id)}
+                      disabled={deactivateMutation.isPending}
+                    >
+                      <Trash2 className="size-3.5 mr-1" />
+                      Deactivate
                     </Button>
                   ) : (
-                    <Button variant="ghost" size="icon" className="size-7" onClick={() => activateMutation.mutate(t.id)} title="Activate">
-                      <CheckCircle className="size-3.5 text-green-600" />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 text-xs text-green-600 border-green-300 dark:border-green-800 hover:bg-green-50 dark:hover:bg-green-950/50"
+                      onClick={() => activateMutation.mutate(t.id)}
+                      disabled={activateMutation.isPending}
+                    >
+                      <CheckCircle className="size-3.5 mr-1" />
+                      Activate
                     </Button>
                   )}
                 </div>

@@ -12,11 +12,11 @@ import { cn } from '@/lib/utils'
 
 const NAV = [
   { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, roles: ['ADMIN','MANAGER','HR','DIRECTOR','EMPLOYEE'] },
-  { label: 'My Requests', href: '/requests', icon: FileText, roles: ['EMPLOYEE','ADMIN'] },
-  { label: 'New Request', href: '/requests/new', icon: Plus, roles: ['EMPLOYEE'] },
+  { label: 'My Requests', href: '/requests', icon: FileText, roles: ['EMPLOYEE','ADMIN','MANAGER'] },
+  { label: 'New Request', href: '/requests/new', icon: Plus, roles: ['EMPLOYEE','ADMIN','MANAGER'] },
   { label: 'Approvals', href: '/approvals', icon: CheckSquare, roles: ['MANAGER','HR','DIRECTOR','ADMIN'] },
   { label: 'Analytics', href: '/admin', icon: BarChart3, roles: ['ADMIN'] },
-  { label: 'Templates', href: '/admin/templates', icon: Settings, roles: ['ADMIN'] },
+  { label: 'Templates', href: '/admin/templates', icon: Settings, roles: ['ADMIN','MANAGER'] },
 ]
 
 export function AppSidebar() {
